@@ -1,476 +1,498 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html {
-  font-family: 'Press Start 2P', cursive;
-  background: #a0c8e0;
+    font-family: 'Press Start 2P', cursive;
+    background: #a0c8e0;
 }
 
 body {
-  max-width: 100%;
-  margin: 0 auto;
-  background: #f0f0f0;
-  color: #333333;
-  border: 2px solid #333333;
-  box-shadow: 2px 2px 0 0 #333333;
-  border-radius: 0;
+    max-width: 100%;
+    margin: 0 auto;
+    background: #f0f0f0;
+    color: #333333;
+    border: 2px solid #333333;
+    box-shadow: 2px 2px 0 0 #333333;
+    border-radius: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Press Start 2P', cursive;
-  color: #333333;
-  margin: 1rem 0;
-  font-weight: 400;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Press Start 2P', cursive;
+    color: #333333;
+    margin: 1rem 0;
+    font-weight: 400;
 }
 
 a {
-  color: #333333;
-  text-decoration: none;
-  transition: none;
+    color: #333333;
+    text-decoration: none;
+    transition: none;
 }
 
 hr {
-  border: none;
-  border-top: 2px solid #333333;
-  margin: 1.5rem 0;
+    border: none;
+    border-top: 2px solid #333333;
+    margin: 1.5rem 0;
 }
 
 nav {
-  background: #333333;
-  display: flex;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  border-radius: 0;
+    background: #333333;
+    display: flex;
+    align-items: center;
+    padding: 1.0rem 1rem;
+    border-radius: 0;
 }
 
 nav h1 {
-  flex: auto;
-  margin: 0;
-  color: #f0f0f0;
-  font-size: 0.9rem;
+    flex: auto;
+    margin: 0;
+    color: #f0f0f0;
+    font-size: 2.0rem;
 }
 
 nav h1 a {
-  text-decoration: none;
-  padding: 0.25rem 0.5rem;
-  color: #f0f0f0;
+    text-decoration: none;
+    padding: 0.25rem 0.5rem;
+    color: #f0f0f0;
 }
 
 nav ul {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  font-weight: 400;
-  font-size: 0.65rem;
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+    font-size: 1.0rem;
+    gap: 1rem;
 }
 
-nav ul li a, nav ul li span, header .action {
-  display: block;
-  padding: 0.5rem;
-  color: #f0f0f0;
-  transition: background-color 0.2s ease;
-  border-radius: 0;
+nav ul li a,
+nav ul li span,
+header .action {
+    display: block;
+    padding: 0.5rem;
+    color: #f0f0f0;
+    transition: background-color 0.2s ease;
+    border-radius: 0;
 }
 
 nav ul li a:hover {
-  background-color: #555555;
-  color: #f0f0f0;
+    background-color: #555555;
+    color: #f0f0f0;
 }
 
 .content {
-  padding: 1.5rem;
+    padding: 1.5rem 3rem;
 }
 
-.content > header {
-  border-bottom: 2px solid #333333;
-  display: flex;
-  align-items: flex-end;
-  margin-bottom: 1.5rem;
+.content p {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    line-height: 2;
 }
 
-.content > header h1 {
-  flex: auto;
-  margin: 1rem 0 0.5rem 0;
-  font-size: 1rem;
+.content>header {
+    border-bottom: 2px solid #333333;
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 1.5rem;
+}
+
+.content>header h1 {
+    flex: auto;
+    margin: 1rem 0 0.5rem 0;
+    font-size: 1rem;
 }
 
 .flash {
-  margin: 1em 0;
-  padding: 1em;
-  background: #f0f0f0;
-  border: 2px solid #333333;
-  box-shadow: 2px 2px 0 0 #333333;
+    margin: 1em 0;
+    padding: 1em;
+    background: #f0f0f0;
+    border: 2px solid #333333;
+    box-shadow: 2px 2px 0 0 #333333;
 }
 
 .content form {
-  margin: 1em 0;
-  display: flex;
-  flex-direction: column;
+    margin: 1em 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .content label {
-  font-weight: 400;
-  margin-bottom: 0.5em;
-  color: #333333;
-  font-size: 0.65rem;
+    font-weight: 400;
+    margin-bottom: 0.5em;
+    color: #333333;
+    font-size: 0.65rem;
 }
 
-.content input, .content textarea {
-  margin-bottom: 1em;
-  padding: 0.75rem;
-  border: 2px solid #333333;
-  border-radius: 0;
-  font-size: 0.65rem;
-  font-family: 'Press Start 2P', cursive;
-  background: #f0f0f0;
-  color: #333333;
+.content input,
+.content textarea {
+    margin-bottom: 1em;
+    padding: 0.75rem;
+    border: 2px solid #333333;
+    border-radius: 0;
+    font-size: 0.65rem;
+    font-family: 'Press Start 2P', cursive;
+    background: #f0f0f0;
+    color: #333333;
 }
 
-.content input:focus, .content textarea:focus {
-  outline: none;
-  box-shadow: 2px 2px 0 0 #333333;
+.content input:focus,
+.content textarea:focus {
+    outline: none;
+    box-shadow: 2px 2px 0 0 #333333;
 }
 
 .content textarea {
-  min-height: 12em;
-  resize: vertical;
+    min-height: 12em;
+    resize: vertical;
 }
 
 input[type=submit] {
-  align-self: start;
-  min-width: 10em;
-  background-color: #f0f0f0;
-  color: #333333;
-  border: 2px solid #333333;
-  box-shadow: 2px 2px 0 0 #333333;
-  padding: 0.75rem 1.5rem;
-  font-size: 0.65rem;
-  font-family: 'Press Start 2P', cursive;
-  font-weight: 400;
-  border-radius: 0;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+    align-self: start;
+    min-width: 10em;
+    background-color: #f0f0f0;
+    color: #333333;
+    border: 2px solid #333333;
+    box-shadow: 2px 2px 0 0 #333333;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.65rem;
+    font-family: 'Press Start 2P', cursive;
+    font-weight: 400;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
 input[type=submit]:hover {
-  background-color: #e0e0e0;
+    background-color: #e0e0e0;
 }
 
 /* Flashcard Styles */
 .flashcard-container {
-  max-width: 600px;
-  margin: 2rem auto;
-  position: relative;
+    max-width: 600px;
+    margin: 2rem auto;
+    position: relative;
 }
 
 .flashcard-count {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  font-size: 0.7rem;
-  color: #333333;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 0.7rem;
+    color: #333333;
 }
 
 .flashcard {
-  perspective: 1000px;
-  width: 100%;
-  height: 350px;
-  position: relative;
+    perspective: 1000px;
+    width: 100%;
+    height: 350px;
+    position: relative;
 }
 
 .flashcard-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.3s;
-  transform-style: preserve-3d;
-  border: 2px solid #333333;
-  box-shadow: 2px 2px 0 0 #333333;
-  border-radius: 0;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.3s;
+    transform-style: preserve-3d;
+    border: 2px solid #333333;
+    box-shadow: 2px 2px 0 0 #333333;
+    border-radius: 0;
 }
 
 .flashcard-inner.flipped {
-  transform: rotateY(180deg);
+    transform: rotateY(180deg);
 }
 
-.flashcard-front, .flashcard-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2rem;
-  box-sizing: border-box;
-  border-radius: 0;
+.flashcard-front,
+.flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    box-sizing: border-box;
+    border-radius: 0;
 }
 
 .flashcard-front {
-  background-color: #f0f0f0;
-  border: 2px solid #333333;
+    background-color: #f0f0f0;
+    border: 2px solid #333333;
 }
 
 .flashcard-back {
-  background-color: #333333;
-  color: #f0f0f0;
-  transform: rotateY(180deg);
-  border: 2px solid #333333;
+    background-color: #333333;
+    color: #f0f0f0;
+    transform: rotateY(180deg);
+    border: 2px solid #333333;
 }
 
 .mark-known-btn {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background-color: #f0f0f0;
-  color: #333333;
-  border: 2px solid #333333;
-  box-shadow: 2px 2px 0 0 #333333;
-  border-radius: 0;
-  width: 36px;
-  height: 36px;
-  font-size: 14px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: background-color 0.2s ease;
-  font-family: 'Press Start 2P', cursive;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: #f0f0f0;
+    color: #333333;
+    border: 2px solid #333333;
+    box-shadow: 2px 2px 0 0 #333333;
+    border-radius: 0;
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s ease;
+    font-family: 'Press Start 2P', cursive;
 }
 
 .mark-known-btn:hover {
-  background-color: #e0e0e0;
+    background-color: #e0e0e0;
 }
 
 .word {
-  font-size: 1.5rem;
-  font-weight: 400;
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  letter-spacing: 0;
-  font-family: 'Press Start 2P', cursive;
+    font-size: 1.5rem;
+    font-weight: 400;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0;
+    font-family: 'Press Start 2P', cursive;
 }
 
 .flashcard-back .word {
-  color: #f0f0f0;
+    color: #f0f0f0;
 }
 
 .navigation-controls {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
 }
 
-.nav-btn, .flip-btn {
-  padding: 10px 20px;
-  background-color: #f0f0f0;
-  color: #333333;
-  border: 2px solid #333333;
-  box-shadow: 2px 2px 0 0 #333333;
-  border-radius: 0;
-  cursor: pointer;
-  font-size: 0.65rem;
-  font-family: 'Press Start 2P', cursive;
-  font-weight: 400;
-  transition: background-color 0.2s ease;
+.nav-btn,
+.flip-btn {
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+    color: #333333;
+    border: 2px solid #333333;
+    box-shadow: 2px 2px 0 0 #333333;
+    border-radius: 0;
+    cursor: pointer;
+    font-size: 0.65rem;
+    font-family: 'Press Start 2P', cursive;
+    font-weight: 400;
+    transition: background-color 0.2s ease;
 }
 
-.nav-btn:hover, .flip-btn:hover {
-  background-color: #e0e0e0;
+.nav-btn:hover,
+.flip-btn:hover {
+    background-color: #e0e0e0;
 }
 
-.nav-btn:active, .flip-btn:active {
-  box-shadow: 1px 1px 0 0 #333333;
-  transform: translate(1px, 1px);
+.nav-btn:active,
+.flip-btn:active {
+    box-shadow: 1px 1px 0 0 #333333;
+    transform: translate(1px, 1px);
 }
 
 .flip-btn {
-  background-color: #333333;
-  color: #f0f0f0;
-  min-width: 100px;
+    background-color: #333333;
+    color: #f0f0f0;
+    min-width: 100px;
 }
 
 .flip-btn:hover {
-  background-color: #555555;
+    background-color: #555555;
 }
 
 .flashcard-back .flip-btn {
-  background-color: #f0f0f0;
-  color: #333333;
+    background-color: #f0f0f0;
+    color: #333333;
 }
 
 .flashcard-back .flip-btn:hover {
-  background-color: #e0e0e0;
+    background-color: #e0e0e0;
 }
 
 /* Dashboard specific styles */
 .dashboard-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1.5rem 0;
-  border: 2px solid #333333;
-  box-shadow: 2px 2px 0 0 #333333;
-  border-radius: 0;
-  overflow: hidden;
-  background: #f0f0f0;
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    border: 2px solid #333333;
+    box-shadow: 2px 2px 0 0 #333333;
+    border-radius: 0;
+    overflow: hidden;
+    background: #f0f0f0;
 }
 
 .word-row {
-  border-bottom: 2px solid #333333;
-  transition: background-color 0.2s ease;
+    border-bottom: 2px solid #333333;
+    transition: background-color 0.2s ease;
 }
 
 .word-row:last-child {
-  border-bottom: none;
+    border-bottom: none;
 }
 
 .word-row:hover {
-  background-color: #e0e0e0;
+    background-color: #e0e0e0;
 }
 
-.word-cell, .button-cell {
-  padding: 0.7rem;
-  vertical-align: middle;
+.word-cell,
+.button-cell {
+    padding: 0.7rem;
+    vertical-align: middle;
 }
 
 .word-cell {
-  font-family: 'Press Start 2P', cursive;
-  font-size: 0.7rem;
-  font-weight: 400;
-  color: #333333;
-  width: 60%;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem;
+    font-weight: 400;
+    color: #333333;
+    width: 60%;
 }
 
 .button-cell form {
-  margin: 0;
+    margin: 0;
 }
 
 .word-btn {
-  font-family: 'Press Start 2P', cursive;
-  font-size: 0.6rem;
-  width: 80%;
-  padding: 0.5rem;
-  border: 2px solid #333333;
-  box-shadow: 2px 2px 0 0 #333333;
-  border-radius: 0;
-  font-weight: 400;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  background: #f0f0f0;
-  color: #333333;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.6rem;
+    width: 80%;
+    padding: 0.5rem;
+    border: 2px solid #333333;
+    box-shadow: 2px 2px 0 0 #333333;
+    border-radius: 0;
+    font-weight: 400;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    background: #f0f0f0;
+    color: #333333;
 }
 
 .word-btn:hover {
-  background-color: #e0e0e0;
+    background-color: #e0e0e0;
 }
 
 .word-btn:active {
-  box-shadow: 1px 1px 0 0 #333333;
-  transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0 0 #333333;
+    transform: translate(1px, 1px);
 }
 
 .known-btn {
-  background-color: #f0f0f0;
-  color: #333333;
+    background-color: #f0f0f0;
+    color: #333333;
 }
 
 .known-btn:hover {
-  background-color: #e0e0e0;
+    background-color: #e0e0e0;
 }
 
 .unknown-btn {
-  background-color: #f0f0f0;
-  color: #333333;
+    background-color: #f0f0f0;
+    color: #333333;
 }
 
 .unknown-btn:hover {
-  background-color: #e0e0e0;
+    background-color: #e0e0e0;
 }
 
 /* Tooltip styling */
 .tooltip-container {
-  position: relative;
+    position: relative;
 }
 
 .tooltip-container:hover {
-  content: attr(title);
+    content: attr(title);
 }
 
 .profile-info {
-  font-weight: 400;
-  font-size: 0.65rem;
+    font-weight: 400;
+    font-size: 0.65rem;
 }
 
 .profile-value {
-  color: #333333;
-  font-weight: 400;
+    color: #333333;
+    font-weight: 400;
 }
 
 /* Empty state styling */
 .empty-message {
-  text-align: center;
-  padding: 2rem;
-  background-color: #f0f0f0;
-  border: 2px solid #333333;
-  box-shadow: 2px 2px 0 0 #333333;
-  border-radius: 0;
-  color: #333333;
-  font-size: 0.7rem;
+    text-align: center;
+    padding: 2rem;
+    background-color: #f0f0f0;
+    border: 2px solid #333333;
+    box-shadow: 2px 2px 0 0 #333333;
+    border-radius: 0;
+    color: #333333;
+    font-size: 0.7rem;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .word-cell {
-    font-size: 0.65rem;
-  }
+    .word-cell {
+        font-size: 0.65rem;
+    }
 
-  .word-btn {
-    padding: 0.5rem;
-    font-size: 0.55rem;
-  }
+    .word-btn {
+        padding: 0.5rem;
+        font-size: 0.55rem;
+    }
 }
 
 @media (max-width: 480px) {
-  .dashboard-table {
-    margin: 1rem 0;
-  }
+    .dashboard-table {
+        margin: 1rem 0;
+    }
 
-  .word-cell, .button-cell {
-    padding: 0.75rem;
-  }
+    .word-cell,
+    .button-cell {
+        padding: 0.75rem;
+    }
 }
 
 .profile-btn {
-  display: inline-block;
-  min-width: 10em;
-  background-color: #f0f0f0;
-  color: #333333;
-  border: 2px solid #333333;
-  box-shadow: 2px 2px 0 0 #333333;
-  padding: 0.75rem 1.5rem;
-  font-size: 0.65rem;
-  font-family: 'Press Start 2P', cursive;
-  font-weight: 400;
-  border-radius: 0;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  text-align: center;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
+    display: inline-block;
+    min-width: 10em;
+    background-color: #f0f0f0;
+    color: #333333;
+    border: 2px solid #333333;
+    box-shadow: 2px 2px 0 0 #333333;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.65rem;
+    font-family: 'Press Start 2P', cursive;
+    font-weight: 400;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-align: center;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
 }
 
 .profile-btn:hover {
-  background-color: #e0e0e0;
-  color: #333333;
+    background-color: #e0e0e0;
+    color: #333333;
 }

@@ -3,14 +3,13 @@
 {% block title %}File Upload{% endblock %}
 
 {% block header %}
-  <h1>File Upload</h1>
+<h1>File Upload</h1>
 {% endblock %}
 
 {% block content %}
-  <form method="POST" action="" enctype="multipart/form-data">
-    <p><input type="file" name="file" accept=".docx, .txt, .pdf"></p>
-    <p><input type="submit" value="Upload" class="known-btn"></p>
-  </form>
-  <p>Use all french documents for the best results</p>
-  <p>Process can take up to 10 minutes</p>
+<form method="POST" action="" enctype="multipart/form-data">
+  <p><input type="file" name="file" accept=".docx, .txt, .pdf"></p>
+  <p><input type="submit" value="Upload" class="known-btn"></p>
+</form>
+<p>Use all french documents for the best results</p>
 {% endblock %}
