@@ -1,5 +1,8 @@
 # Existing configuration settings
-MAX_CONTENT_LENGTH = 100 * 1024 * 1024 
+MAX_CONTENT_LENGTH = 100 * 1024 * 1024
+
+# Bump this when deploying CSS/JS changes to invalidate caches
+STATIC_VERSION = 3
 DATABASE = 'instance/lexloop.sqlite'
 UPLOADS = 'instance/uploads'
 
