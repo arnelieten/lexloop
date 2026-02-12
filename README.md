@@ -27,6 +27,7 @@ python -m spacy download en_core_web_sm
 From the project root (folder that contains the lexloop package):
 PowerShell: $env:FLASK_APP = "lexloop:create_app()"
 Command Prompt: set FLASK_APP=lexloop:create_app()
+Macos/Linux: export FLASK_APP="lexloop:create_app()"
 
 ### 6. Initialize DB
 

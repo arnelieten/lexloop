@@ -1,10 +1,11 @@
 import os
 import re
+from pathlib import Path
 
 import fitz
+import pandas as pd
 import spacy
 from flask import Blueprint, current_app, flash, redirect, session, url_for
-from transformers import pipeline
 
 from lexloop.auth import login_required
 from lexloop.db import get_db
@@ -69,6 +70,7 @@ def process_file(filename):
                 len(token.text) > target_length
                 and token.pos_ in target_pos
                 and token.ent_type_ == ""
+                and not token.is_stop
             ):
                 set_french.add(token.lemma_)
                 french_words_with_pos.append((token.lemma_, token.pos_))
@@ -80,33 +82,21 @@ def process_file(filename):
             flash("No suitable French words found in the document.")
             return redirect(url_for("uploads.upload_file"))
 
-        ### TRANSLATION ###
-        try:
-            translation_pipeline = pipeline(
-                task="translation",
-                model="facebook/nllb-200-distilled-600M",
-                src_lang="fra_Latn",
-                tgt_lang="eng_Latn",
-            )
-
-            batch_size = 20
-            list_english = []
-
-            for i in range(0, len(list_french), batch_size):
-                batch = list_french[i : i + batch_size]
-                translations = translation_pipeline(batch, return_text=True)
-                list_english.extend([item["translation_text"] for item in translations])
-
-        except Exception as e:
-            flash(f"Translation error: {str(e)}")
+        ### TRANSLATION (parquet lookup) ###
+        dict_path = Path(__file__).resolve().parent.parent / "dictionaries" / "dict_fr_eng.parquet"
+        if not dict_path.exists():
+            flash("Dictionary file not found.")
             return redirect(url_for("uploads.upload_file"))
-
-        initial_dictionary = dict(zip(list_french, list_english))
-
+        df = pd.read_parquet(dict_path)
+        df["french"] = df["french"].str.strip().str.lower()
+        df["english"] = df["english"].str.strip().str.lower()
+        lookup = (
+            df.drop_duplicates(subset=["french"], keep="first")
+            .set_index("french")["english"]
+            .to_dict()
+        )
         list_dictionary = {
-            french.lower(): english.lower()
-            for french, english in initial_dictionary.items()
-            if french.strip() and english.strip() and french.lower() != english.lower()
+            fr: lookup[fr] for fr in list_french if fr in lookup and fr != lookup[fr]
         }
 
         ### POST-PROCESSING ###
