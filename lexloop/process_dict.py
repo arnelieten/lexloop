@@ -1,3 +1,4 @@
+import json
 import os
 import re
 from pathlib import Path
@@ -5,7 +6,7 @@ from pathlib import Path
 import fitz
 import pandas as pd
 import spacy
-from flask import Blueprint, current_app, flash, redirect, session, url_for
+from flask import Blueprint, Response, current_app, flash, redirect, render_template, session, url_for
 
 from lexloop.auth import login_required
 from lexloop.db import get_db
@@ -13,59 +14,54 @@ from lexloop.db import get_db
 bp = Blueprint("process", __name__, url_prefix="/process")
 
 
-@bp.route("/<filename>", methods=["GET"])
-@login_required
-def process_file(filename):
-    user_id = session.get("user_id")
-    if not user_id:
-        flash("User not authenticated!")
-        return redirect(url_for("auth.login"))
+def _send_sse(data):
+    """Format dict as SSE line."""
+    return f"data: {json.dumps(data)}\n\n"
 
-    file_path = os.path.join(current_app.config["UPLOADS"], filename)
 
-    if not os.path.exists(file_path):
-        flash("File not found!")
-        return redirect(url_for("uploads.upload_file"))
-
+def process_file_generator(file_path, user_id):
+    """
+    Run preprocessing, translation, postprocessing. Yields (event_type, step, message)
+    for progress: ("step", 1..3, message), then ("done", None, None) or ("error", None, message).
+    """
     try:
         doc = fitz.open(file_path)
         if not doc.is_pdf:
-            flash("File should have pdf extension!")
-            return redirect(url_for("uploads.upload_file"))
+            yield ("error", None, "File should have pdf extension!")
+            return
     except Exception as e:
-        flash(f"Error opening file: {str(e)}")
-        return redirect(url_for("uploads.upload_file"))
+        yield ("error", None, str(e))
+        return
 
     try:
         text = ""
-
         for page in doc:
             text += page.get_text()
 
         ### PRE-PROCESSING ###
-        text = re.sub(r"https?://\S+", "", text)  # removes websites
-        text = re.sub(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}", "", text)  # removes emails
-        text = re.sub(r"-\n", "", text)  # removes hyphen before newline
-        text = re.sub(r"[:;…()\[\]«»]", "", text)  # removes :;…()\[\]«»
-        text = re.sub(r"\d+", "", text)  # removes numbers
+        text = re.sub(r"https?://\S+", "", text)
+        text = re.sub(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}", "", text)
+        text = re.sub(r"-\n", "", text)
+        text = re.sub(r"[:;…()\[\]«»]", "", text)
+        text = re.sub(r"\d+", "", text)
         text = text.lower()
 
         try:
             nlp_fr = spacy.load("fr_core_news_lg")
         except OSError:
-            flash("Required language model not found. Please contact the administrator.")
-            return redirect(url_for("uploads.upload_file"))
+            yield ("error", None, "Required language model not found. Please contact the administrator.")
+            return
 
         set_french = set()
         target_pos = ["NOUN", "ADV", "ADJ", "VERB"]
         target_length = 4
-        doc = nlp_fr(text)
+        doc_nlp = nlp_fr(text)
 
         french_words_with_pos = []
         french_words_with_gender = []
         french_words_with_number = []
 
-        for token in doc:
+        for token in doc_nlp:
             if (
                 len(token.text) > target_length
                 and token.pos_ in target_pos
@@ -79,14 +75,16 @@ def process_file(filename):
 
         list_french = list(set_french)
         if not list_french:
-            flash("No suitable French words found in the document.")
-            return redirect(url_for("uploads.upload_file"))
+            yield ("error", None, "No suitable French words found in the document.")
+            return
+
+        yield ("step", 1, "Preprocessing complete")
 
         ### TRANSLATION (parquet lookup) ###
         dict_path = Path(__file__).resolve().parent.parent / "dictionaries" / "dict_fr_eng.parquet"
         if not dict_path.exists():
-            flash("Dictionary file not found.")
-            return redirect(url_for("uploads.upload_file"))
+            yield ("error", None, "Dictionary file not found.")
+            return
         df = pd.read_parquet(dict_path)
         df["french"] = df["french"].str.strip().str.lower()
         df["english"] = df["english"].str.strip().str.lower()
@@ -99,12 +97,14 @@ def process_file(filename):
             fr: lookup[fr] for fr in list_french if fr in lookup and fr != lookup[fr]
         }
 
+        yield ("step", 2, "Translation complete")
+
         ### POST-PROCESSING ###
         try:
             nlp_en = spacy.load("en_core_web_sm")
         except OSError:
-            flash("Required English language model not found. Please contact the administrator.")
-            return redirect(url_for("uploads.upload_file"))
+            yield ("error", None, "Required English language model not found. Please contact the administrator.")
+            return
 
         french_pos_dict = {}
         for word, pos in french_words_with_pos:
@@ -158,6 +158,7 @@ def process_file(filename):
 
                 matching_pos_dictionary[enhanced_french] = enhanced_english
 
+        db = None
         try:
             db = get_db()
 
@@ -189,15 +190,74 @@ def process_file(filename):
                 )
 
             db.commit()
-            flash("Document processed successfully!")
 
         except Exception as e:
-            db.rollback()
-            flash(f"Database error: {str(e)}")
-            return redirect(url_for("uploads.upload_file"))
+            if db is not None:
+                db.rollback()
+            yield ("error", None, f"Database error: {str(e)}")
+            return
 
-        return redirect(url_for("dashboard.display"))
+        yield ("step", 3, "Post-processing complete")
+        yield ("done", None, None)
 
     except Exception as e:
-        flash(f"An unexpected error occurred: {str(e)}")
+        yield ("error", None, f"An unexpected error occurred: {str(e)}")
+
+
+@bp.route("/<filename>", methods=["GET"])
+@login_required
+def process_file(filename):
+    """Show processing page with loading bar; client connects to stream endpoint."""
+    user_id = session.get("user_id")
+    if not user_id:
+        flash("User not authenticated!")
+        return redirect(url_for("auth.login"))
+
+    file_path = os.path.join(current_app.config["UPLOADS"], filename)
+    if not os.path.exists(file_path):
+        flash("File not found!")
         return redirect(url_for("uploads.upload_file"))
+
+    return render_template("uploads/processing.html", filename=filename)
+
+
+@bp.route("/<filename>/stream", methods=["GET"])
+@login_required
+def process_file_stream(filename):
+    """Stream processing progress as Server-Sent Events (step 1/3, 2/3, 3/3, done)."""
+    user_id = session.get("user_id")
+    if not user_id:
+        return Response(
+            _send_sse({"event": "error", "message": "Not authenticated"}),
+            mimetype="text/event-stream",
+            status=403,
+        )
+
+    file_path = os.path.join(current_app.config["UPLOADS"], filename)
+    if not os.path.exists(file_path):
+        return Response(
+            _send_sse({"event": "error", "message": "File not found"}),
+            mimetype="text/event-stream",
+            status=404,
+        )
+
+    app = current_app._get_current_object()
+
+    def generate():
+        with app.app_context():
+            for event_type, step, message in process_file_generator(file_path, user_id):
+                if event_type == "step":
+                    yield _send_sse({"event": "step", "step": step, "message": message})
+                elif event_type == "done":
+                    yield _send_sse({"event": "done"})
+                elif event_type == "error":
+                    yield _send_sse({"event": "error", "message": message or "Unknown error"})
+
+    return Response(
+        generate(),
+        mimetype="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "X-Accel-Buffering": "no",
+        },
+    )
