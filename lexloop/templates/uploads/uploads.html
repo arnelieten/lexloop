@@ -8,8 +8,18 @@
 
 {% block content %}
 <form method="POST" action="" enctype="multipart/form-data">
-  <p><input type="file" name="file" accept=".docx, .txt, .pdf"></p>
+  <p>
+    <input type="file" name="file" id="file-input" accept=".docx, .txt, .pdf" class="file-input-hidden">
+    <label for="file-input" class="upload-btn">Select file</label>
+    <span id="file-name" class="file-name"></span>
+  </p>
   <p><input type="submit" value="Upload" class="known-btn"></p>
 </form>
 <p>Use all french documents for the best results</p>
+<script>
+  document.getElementById('file-input').addEventListener('change', function () {
+    var name = this.files.length ? this.files[0].name : '';
+    document.getElementById('file-name').textContent = name;
+  });
+</script>
 {% endblock %}
