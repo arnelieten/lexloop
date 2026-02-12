@@ -8,7 +8,7 @@
 
 html {
     font-family: 'Press Start 2P', cursive;
-    background: #a0c8e0;
+    background: #FFB366;
 }
 
 body {
@@ -202,6 +202,23 @@ input[type=submit]:hover {
 
 .upload-btn:hover {
     background-color: #e0e0e0;
+}
+
+.upload-form .upload-btn,
+.upload-form input[type=submit] {
+    width: 18em;
+    min-width: 18em;
+    padding: 0.75rem 1rem;
+    font-size: 0.65rem;
+    font-family: 'Press Start 2P', cursive;
+    box-sizing: border-box;
+    display: inline-block;
+    text-align: center;
+    line-height: 1.4;
+    vertical-align: middle;
+    border: 2px solid #333333;
+    border-radius: 0;
+    cursor: pointer;
 }
 
 .file-name {
@@ -528,4 +545,264 @@ input[type=submit]:hover {
 .profile-btn:hover {
     background-color: #e0e0e0;
     color: #333333;
+}
+
+/* Landing page: retro pixel style */
+body.landing-page {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    max-width: 100%;
+}
+
+.landing-page header {
+    background-color: #333333;
+    padding: 1rem 0;
+    border-bottom: 2px solid #333333;
+}
+
+.landing-page header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.landing-page .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.landing-page .logo {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #f0f0f0;
+}
+
+.landing-page .nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 1rem;
+    align-items: center;
+}
+
+.landing-page .nav-links li {
+    margin: 0;
+}
+
+.landing-page .nav-links a {
+    display: block;
+    padding: 0.5rem;
+    color: #f0f0f0;
+    font-size: 0.6rem;
+}
+
+.landing-page .nav-links a:hover {
+    background-color: #555555;
+}
+
+.landing-page .nav-links .btn {
+    color: #f0f0f0;
+    background-color: transparent;
+    border-color: #f0f0f0;
+    box-shadow: 2px 2px 0 0 #f0f0f0;
+}
+
+.landing-page .nav-links .btn:hover {
+    background-color: #555555;
+    color: #f0f0f0;
+}
+
+.landing-page .btn {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.6rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #f0f0f0;
+    color: #333333;
+    border: 2px solid #333333;
+    box-shadow: 2px 2px 0 0 #333333;
+    border-radius: 0;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.landing-page .btn:hover {
+    background-color: #e0e0e0;
+}
+
+.landing-page .btn:active {
+    box-shadow: 1px 1px 0 0 #333333;
+    transform: translate(1px, 1px);
+}
+
+.landing-page .btn-large {
+    padding: 1rem 2rem;
+    font-size: 0.8rem;
+}
+
+.landing-hero .btn {
+    color: #f0f0f0;
+    background-color: transparent;
+    border-color: #f0f0f0;
+    box-shadow: 2px 2px 0 0 #f0f0f0;
+}
+
+.landing-hero .btn:hover {
+    background-color: #555555;
+    color: #f0f0f0;
+}
+
+.landing-hero .btn:active {
+    box-shadow: 1px 1px 0 0 #f0f0f0;
+    transform: translate(1px, 1px);
+}
+
+.landing-hero {
+    padding: 4rem 0 5rem;
+    background-color: #333333;
+    color: #f0f0f0;
+    text-align: center;
+    border-bottom: 2px solid #333333;
+}
+
+.landing-hero h1 {
+    color: #f0f0f0;
+    font-size: 1.1rem;
+    line-height: 2;
+    max-width: 1100px;
+    margin: 0 auto 3.5rem;
+}
+
+.landing-hero p {
+    font-size: 0.75rem;
+    line-height: 2;
+    max-width: 900px;
+    margin: 0 auto 4.5rem;
+    opacity: 0.95;
+}
+
+.landing-section {
+    padding: 3rem 0;
+    background-color: #FFB366;
+}
+
+.landing-section .section-title {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.landing-section .section-title h2 {
+    font-size: 1.1rem;
+    color: #333333;
+}
+
+.landing-steps {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.landing-step {
+    flex: 1;
+    min-width: 220px;
+    max-width: 280px;
+    padding: 1.5rem;
+    background-color: #f0f0f0;
+    border: 2px solid #333333;
+    box-shadow: 2px 2px 0 0 #333333;
+    border-radius: 0;
+    text-align: center;
+}
+
+.landing-step .step-number {
+    width: 44px;
+    height: 44px;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333333;
+    color: #f0f0f0;
+    font-size: 0.75rem;
+    border: 2px solid #333333;
+    box-shadow: 2px 2px 0 0 #333333;
+}
+
+.landing-step h3 {
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+    color: #333333;
+}
+
+.landing-step p {
+    font-size: 0.65rem;
+    line-height: 1.8;
+    color: #333333;
+}
+
+.landing-benefits-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.landing-benefit {
+    flex: 1;
+    min-width: 260px;
+    max-width: 320px;
+    padding: 1.5rem;
+    background-color: #f0f0f0;
+    border: 2px solid #333333;
+    box-shadow: 2px 2px 0 0 #333333;
+    border-radius: 0;
+}
+
+.landing-benefit h3 {
+    font-size: 0.65rem;
+    margin-bottom: 0.75rem;
+    color: #333333;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.landing-benefit p {
+    font-size: 0.55rem;
+    line-height: 1.8;
+    color: #333333;
+}
+
+.landing-page footer {
+    background-color: #333333;
+    padding: 1.5rem 0;
+    text-align: center;
+    border-top: 2px solid #333333;
+}
+
+.landing-page footer p {
+    font-size: 0.55rem;
+    color: #f0f0f0;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .landing-hero h1 {
+        font-size: 0.95rem;
+    }
+
+    .landing-steps,
+    .landing-benefits-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .landing-step,
+    .landing-benefit {
+        max-width: 100%;
+    }
 }
